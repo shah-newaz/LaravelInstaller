@@ -35,7 +35,7 @@ class DatabaseManager
     {
         try{
             Artisan::call('migrate', ["--force"=> true], $outputLog);
-            Artisan::call('permissible:setup', $outputLog);
+            
         }
         catch(Exception $e){
             return $this->response($e->getMessage(), $outputLog);
@@ -52,6 +52,7 @@ class DatabaseManager
      */
     private function seed($outputLog)
     {
+        $log = '';
         try{
             Artisan::call('db:seed', [], $outputLog);
         }
@@ -75,7 +76,7 @@ class DatabaseManager
         return [
             'status' => $status,
             'message' => $message,
-            'dbOutputLog' => $outputLog->fetch() // 'dbOutputLog' => $outputLog->fetch() -- Not working. For now this seems to be a string already
+            'dbOutputLog' => $outputLog // 'dbOutputLog' => $outputLog->fetch() -- Not working. For now this seems to be a string already
         ];
     }
 
