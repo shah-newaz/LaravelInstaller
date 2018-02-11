@@ -35,6 +35,7 @@ class DatabaseManager
     {
         try{
             Artisan::call('migrate', ["--force"=> true], $outputLog);
+            Artisan::call('permissible:setup', $outputLog);
         }
         catch(Exception $e){
             return $this->response($e->getMessage(), $outputLog);
@@ -74,7 +75,7 @@ class DatabaseManager
         return [
             'status' => $status,
             'message' => $message,
-            'dbOutputLog' => $outputLog->fetch()
+            'dbOutputLog' => $outputLog->fetch() // 'dbOutputLog' => $outputLog->fetch() -- Not working. For now this seems to be a string already
         ];
     }
 
